@@ -18,10 +18,10 @@
 
 
 <!-- Simulated high level components: -->
-    <e Name="TELESCOPE_S"
-       Code="Acssim.Servants.Simulator"
+    <e Name="TELESCOPE"
+       Code="TelescopeImpl"
        Type="IDL:acsws/TELESCOPE_MODULE/Telescope:1.0"
-       Container="pySimContainer" ImplLang="py" />
+       Container="bilboContainer" ImplLang="cpp" />
 
     <e Name="DATABASE_S"
        Code="Acssim.Servants.Simulator"
