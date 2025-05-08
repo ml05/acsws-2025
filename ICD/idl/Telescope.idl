@@ -39,6 +39,9 @@ module TELESCOPE_MODULE
 	
 	interface Telescope : ACS::ACSComponent
 	{
+
+	string printHello();
+
 	/** 
 	 * Moves to the given position and takes an exposure
 	 * of length exposureTime (seconds). Raises and exception 
@@ -49,8 +52,8 @@ module TELESCOPE_MODULE
 	 * @return Image 
 	 * 
 	 */
-	TYPES::ImageType observe(in TYPES::Position coordinates, in long exposureTime)
-		raises(SYSTEMErr::PositionOutOfLimitsEx);
+	//TYPES::ImageType observe(in TYPES::Position coordinates, in long exposureTime)
+	//	raises(SYSTEMErr::PositionOutOfLimitsEx);
 
 	/** 
 	 * Commands the telescope to move to the given position. Raises
@@ -59,15 +62,15 @@ module TELESCOPE_MODULE
 	 * @param coordinates Requested telescope position
 	 * @return None
 	 */
-	void moveTo(in TYPES::Position coordinates)
-		raises(SYSTEMErr::PositionOutOfLimitsEx);
+	//void moveTo(in TYPES::Position coordinates)
+	//	raises(SYSTEMErr::PositionOutOfLimitsEx);
 
 	/**
 	 * Get the current telescope position.
 	 *
 	 * @return current telescope position
 	 */
-	TYPES::Position getCurrentPosition();
+	//TYPES::Position getCurrentPosition();
 	};
 };
 
