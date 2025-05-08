@@ -17,7 +17,7 @@ char* TelescopeImpl::printHello() {
     return CORBA::string_dup("Hello World!");
 }
 
-void TelescopeImpl::moveTo(TYPES::Position coordinates) {
+void TelescopeImpl::moveTo(TYPES::Position const& coordinates) {
 
     // Request the TelescopeControl Component
     TELESCOPE_MODULE::TelescopeControl *comp = this->getContainerServices()->getComponent<TELESCOPE_MODULE::TelescopeControl>("TELESCOPE_CONTROL");
@@ -29,14 +29,14 @@ void TelescopeImpl::moveTo(TYPES::Position coordinates) {
 
 }
 
-TYPES::ImageType TelescopeImpl::observe(TYPES::Position coordinates, long exposureTime) {
+TYPES::ImageType* TelescopeImpl::observe(const TYPES::Position& coordinates, CORBA::Long exposureTime) {
 
     moveTo(coordinates);
     
     // Request the Instrument Component
     INSTRUMENT_MODULE::Instrument *comp = this->getContainerServices()->getComponent<INSTRUMENT_MODULE::Instrument>("INSTRUMENT_S");
 
-    TYPES::ImageType_var result = comp->takeImage(exposureTime);
+    TYPES::ImageType* result = comp->takeImage(exposureTime);
 
     // Release Component
     this->getContainerServices()->releaseComponent(comp->name());

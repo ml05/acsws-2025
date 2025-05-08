@@ -21,8 +21,8 @@ class TelescopeImpl : public virtual acscomponent::ACSComponentImpl, public virt
     virtual ~TelescopeImpl();
     char* printHello();
     inline TYPES::Position getCurrentPosition() { return pos; };
-    void moveTo(TYPES::Position);
-    TYPES::ImageType observe(TYPES::Position, long);
+    void moveTo(TYPES::Position const&);
+    TYPES::ImageType* observe(const TYPES::Position&, CORBA::Long);
 
   private:
     TYPES::Position pos;
