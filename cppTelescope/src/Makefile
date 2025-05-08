@@ -72,12 +72,14 @@ xxxxx_LIBS      =
 #
 # Includes (.h) files (public only)
 # ---------------------------------
-INCLUDES        =
+INCLUDES        = TelescopeImpl.h
 
 #
 # Libraries (public and local)
 # ----------------------------
-LIBRARIES       =
+LIBRARIES       = TelescopeImpl
+TelescopeImpl_OBJECTS = TelescopeImpl
+TelescopeImpl_LIBS = TelescopeStubs acscomponent
 LIBRARIES_L     =
 
 #
