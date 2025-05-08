@@ -10,13 +10,17 @@
  
 //Skeleton interface for server implementation
 #include <TelescopeS.h>
- 
+#include <TypesC.h>
+
 //Error definitions for catching and raising exceptions
 class TelescopeImpl : public virtual acscomponent::ACSComponentImpl, public virtual POA_TELESCOPE_MODULE::Telescope {
   public:
     TelescopeImpl(const ACE_CString& name, maci::ContainerServices * containerServices);
     virtual ~TelescopeImpl();
     char* printHello();
+    TYPES::Position getCurrentPosition() { std::cout << "Current Position " << pos.az << " " << pos.el << std::endl; return pos; };
+  private:
+    TYPES::Position pos;
 };
  
 #endif

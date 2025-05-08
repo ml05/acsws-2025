@@ -70,7 +70,7 @@ module TELESCOPE_MODULE
 	 *
 	 * @return current telescope position
 	 */
-	//TYPES::Position getCurrentPosition();
+	TYPES::Position getCurrentPosition();
 	};
 };
 

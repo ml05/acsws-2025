@@ -1,6 +1,10 @@
 #include <TelescopeImpl.h>
  
 TelescopeImpl::TelescopeImpl(const ACE_CString& name, maci::ContainerServices * containerServices) : ACSComponentImpl(name, containerServices) {
+
+	pos.az = 0.;
+	pos.el = 0.;
+
 }
  
 TelescopeImpl::~TelescopeImpl() {
