@@ -1,4 +1,6 @@
 #include <TelescopeImpl.h>
+#include <TelescopeControlC.h>
+#include <InstrumentC.h>
  
 TelescopeImpl::TelescopeImpl(const ACE_CString& name, maci::ContainerServices * containerServices) : ACSComponentImpl(name, containerServices) {
 
@@ -13,6 +15,34 @@ TelescopeImpl::~TelescopeImpl() {
 char* TelescopeImpl::printHello() {
     std::cout << "Just printing 'Hello World!'" << std::endl;
     return CORBA::string_dup("Hello World!");
+}
+
+void TelescopeImpl::moveTo(TYPES::Position coordinates) {
+
+    // Request the TelescopeControl Component
+    TELESCOPE_MODULE::TelescopeControl *comp = this->getContainerServices()->getComponent<TELESCOPE_MODULE::TelescopeControl>("TELESCOPE_CONTROL");
+
+    comp->objfix(coordinates.el, coordinates.az);
+
+    // Release Component
+    this->getContainerServices()->releaseComponent(comp->name());
+
+}
+
+TYPES::ImageType TelescopeImpl::observe(TYPES::Position coordinates, long exposureTime) {
+
+    moveTo(coordinates);
+    
+    // Request the Instrument Component
+    INSTRUMENT_MODULE::Instrument *comp = this->getContainerServices()->getComponent<INSTRUMENT_MODULE::Instrument>("INSTRUMENT_S");
+
+    TYPES::ImageType_var result = comp->takeImage(exposureTime);
+
+    // Release Component
+    this->getContainerServices()->releaseComponent(comp->name());
+
+    return result;
+
 }
  
 /* --------------- [ MACI DLL support functions ] -----------------*/
