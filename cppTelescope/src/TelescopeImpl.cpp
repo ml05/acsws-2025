@@ -42,10 +42,10 @@ TYPES::ImageType* TelescopeImpl::observe(const TYPES::Position& coordinates, COR
         return result;
     } catch(SYSTEMErr::PositionOutOfLimitsEx &_ex) {
         ACS_SHORT_LOG((LM_ERROR, "Coordinates out of limits"));
-        throw SYSTEMErr::PositionOutOfLimitsExImpl(_ex, __FILE__, __LINE__).getPositionOutOfLimitsEx();
+        throw SYSTEMErr::PositionOutOfLimitsExImpl(_ex, __FILE__, __LINE__, "TelescopeImpl::observe").getPositionOutOfLimitsEx();
     } catch(SYSTEMErr::CameraIsOffEx &_ex) {
         ACS_SHORT_LOG((LM_ERROR, "Error taking the picture: Camera is off"));
-        throw SYSTEMErr::PositionOutOfLimitsExImpl(_ex, __FILE__, __LINE__).getPositionOutOfLimitsEx();
+        throw SYSTEMErr::PositionOutOfLimitsExImpl(_ex, __FILE__, __LINE__, "TelescopeImpl::observe").getPositionOutOfLimitsEx();
     }
 }
  
