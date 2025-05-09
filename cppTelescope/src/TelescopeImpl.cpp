@@ -29,6 +29,11 @@ void TelescopeImpl::moveTo(TYPES::Position const& coordinates) {
 
     // Release Component
     this->getContainerServices()->releaseComponent(comp->name());
+
+    // Update the internal coordinates
+    pos.az = coordinates.az;
+    pos.el = coordinates.el;
+
 }
 
 TYPES::ImageType* TelescopeImpl::observe(const TYPES::Position& coordinates, CORBA::Long exposureTime) {
