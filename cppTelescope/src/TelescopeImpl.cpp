@@ -40,12 +40,12 @@ TYPES::ImageType* TelescopeImpl::observe(const TYPES::Position& coordinates, COR
         // Release Component
         this->getContainerServices()->releaseComponent(comp->name());
         return result;
-    } catch(SYSTEMErr::PositionOutOfLimitsEx) {
+    } catch(SYSTEMErr::PositionOutOfLimitsEx &_ex) {
         ACS_SHORT_LOG((LM_ERROR, "Coordinates out of limits"));
-        throw SYSTEMErr::PositionOutOfLimitsEx(__FILE__, __LINE__, "Coordinates out of limits").getAlreadyInAutomaticEx();
-    } catch(SYSTEMErr::CameraIsOffEx) {
+        throw SYSTEMErr::PositionOutOfLimitsEx(_ex, __FILE__, __LINE__).getAlreadyInAutomaticEx();
+    } catch(SYSTEMErr::CameraIsOffEx &_ex) {
         ACS_SHORT_LOG((LM_ERROR, "Error taking the picture: Camera is off"));
-        throw SYSTEMErr::PositionOutOfLimitsEx(__FILE__, __LINE__, "Camera is off").getAlreadyInAutomaticEx();
+        throw SYSTEMErr::PositionOutOfLimitsEx(_ex, __FILE__, __LINE__).getAlreadyInAutomaticEx();
     }
 }
  
