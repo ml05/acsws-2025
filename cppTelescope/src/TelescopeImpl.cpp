@@ -35,7 +35,7 @@ TYPES::ImageType* TelescopeImpl::observe(const TYPES::Position& coordinates, COR
     try {
         moveTo(coordinates);
         // Request the Instrument Component
-        INSTRUMENT_MODULE::Instrument *comp = this->getContainerServices()->getComponent<INSTRUMENT_MODULE::Instrument>("INSTRUMENT_S");
+        INSTRUMENT_MODULE::Instrument *comp = this->getContainerServices()->getComponent<INSTRUMENT_MODULE::Instrument>("INSTRUMENT");
         TYPES::ImageType* result = comp->takeImage(exposureTime);
         // Release Component
         this->getContainerServices()->releaseComponent(comp->name());
