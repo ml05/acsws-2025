@@ -29,7 +29,7 @@ void TelescopeImpl::moveTo(TYPES::Position const& coordinates) {
 
     // Release Component
     this->getContainerServices()->releaseComponent(comp->name());
-    ACS_SHORT_LOG((LM_INFO, "All done. Final position: (%d,%d)", coordinates.el, coordinates.az));
+    ACS_SHORT_LOG((LM_INFO, "All done. Final position: (%lf,%lf)", coordinates.el, coordinates.az));
 }
 
 TYPES::ImageType* TelescopeImpl::observe(const TYPES::Position& coordinates, CORBA::Long exposureTime) {
@@ -40,16 +40,14 @@ TYPES::ImageType* TelescopeImpl::observe(const TYPES::Position& coordinates, COR
         TYPES::ImageType* result = comp->takeImage(exposureTime);
         // Release Component
         this->getContainerServices()->releaseComponent(comp->name());
-    } catch(SYSTEMErr::PositionOutOfLimitsEx) {
+        return result;
+    } catch(SYSTEMErr::PositionOutOfLimitsEx &_ex) {
         ACS_SHORT_LOG((LM_ERROR, "Coordinates out of limits"));
         throw SYSTEMErr::PositionOutOfLimitsEx(__FILE__, __LINE__, "Coordinates out of limits").getAlreadyInAutomaticEx();
-    } catch(SYSTEMErr::CameraIsOffEx) {
+    } catch(SYSTEMErr::CameraIsOffEx &_ex) {
         ACS_SHORT_LOG((LM_ERROR, "Error taking the picture: Camera is off"));
         throw SYSTEMErr::PositionOutOfLimitsEx(__FILE__, __LINE__, "Camera is off").getAlreadyInAutomaticEx();
     }
-
-    return result;
-
 }
  
 /* --------------- [ MACI DLL support functions ] -----------------*/
