@@ -20,7 +20,7 @@ char* TelescopeImpl::printHello() {
 // PositionOutOfLimitsEx
 void TelescopeImpl::moveTo(TYPES::Position const& coordinates) {
     if (coordinates.az < 0 || coordinates.az > 360 || coordinates.el > 90 || coordinates.el < 0) {
-        throw SYSTEMErr::PositionOutOfLimitsEx(__FILE__, __LINE__, "Coordinates out of limits").getAlreadyInAutomaticEx();
+        throw SYSTEMErr::PositionOutOfLimitsExImpl(__FILE__, __LINE__, "TelescopeImpl::moveTo").getPositionOutOfLimitsEx();
     }
     // Request the TelescopeControl Component
     TELESCOPE_MODULE::TelescopeControl *comp = this->getContainerServices()->getComponent<TELESCOPE_MODULE::TelescopeControl>("TELESCOPE_CONTROL");
@@ -42,10 +42,10 @@ TYPES::ImageType* TelescopeImpl::observe(const TYPES::Position& coordinates, COR
         return result;
     } catch(SYSTEMErr::PositionOutOfLimitsEx &_ex) {
         ACS_SHORT_LOG((LM_ERROR, "Coordinates out of limits"));
-        throw SYSTEMErr::PositionOutOfLimitsEx(_ex, __FILE__, __LINE__).getAlreadyInAutomaticEx();
+        throw SYSTEMErr::PositionOutOfLimitsExImpl(_ex, __FILE__, __LINE__).getPositionOutOfLimitsEx();
     } catch(SYSTEMErr::CameraIsOffEx &_ex) {
         ACS_SHORT_LOG((LM_ERROR, "Error taking the picture: Camera is off"));
-        throw SYSTEMErr::PositionOutOfLimitsEx(_ex, __FILE__, __LINE__).getAlreadyInAutomaticEx();
+        throw SYSTEMErr::PositionOutOfLimitsExImpl(_ex, __FILE__, __LINE__).getPositionOutOfLimitsEx();
     }
 }
  
